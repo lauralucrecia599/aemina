@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AENIMA | Panel</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+  <header class="main-header">
+    <a href="#" class="logo">
+      <span class="logo-mini"><b>A</b>E</span><span class="logo-lg"><b>Admin</b>AENIMA</span>
+    </a>
+    <nav class="navbar navbar-static-top">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav"></ul>
+      </div>
+    </nav>
+  </header>
+  <aside class="main-sidebar">
+    <section class="sidebar">
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>Administrador</p>
+        </div>
+      </div>
+      <ul class="sidebar-menu" data-widget="tree">
+        <li><a href="/productos"><span>Listado</span></a></li>
+        <li><a href="#"><span>Salir</span></a></li>
+      </ul>
+    </section>
+  </aside>
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Listado de Productos</h3>
+            <a href="#" class="btn btn-round btn-info btn-icon btn-sm" style="border: none;color: white;float: right;font-weight: bold;font-size: 12px;background:black;"
+            data-toggle="modal" data-target="#productonuevo">
+            <i class="fa fa-plus"></i>Agregar
+            </a>
+          </div>
+          <div class="box-body">
+            <table id="tablaproductos" class="display">
+              <thead>
+                <tr>
+                  <th >Imagen</th>
+                  <th >Nombre</th>
+                  <th >Descripcion</th>
+                  <th >Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaproductosbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+<div class="modal fade" id="productonuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 40px;border-radius: 20px;">
+        <h3>Producto Nuevo</h3>
+        <form class="form-horizontal"  id="Formproductonuevo" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Producto" required="">
+            </div>
+            <div class="col-md-12">
+                <textarea  class="form-control" id="descripcion" name="descripcion" required=""></textarea>
+            </div>
+            <div class="col-md-12">
+              <input type="file" name="imagen" value="" required="">
+              <br clear=all>
+                <input type="submit" value="Crear" class="btn btn-round btn-info btn-icon " style="border: none;color: white;float: right;font-weight: bold;font-size: 12px;background:black;" id="productonuevo">
+            </div>
+          </div>
+        </form>
+          <br clear="all">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="productoedit" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="padding: 40px;border-radius: 20px;">
+        <h3>Producto Editar</h3>
+        <form class="form-horizontal"  id="Formproductoedit" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="text" class="form-control" id="nombreedit" name="nombre" placeholder="Producto" required="">
+            </div>
+            <div class="col-md-12">
+              <input type="hidden" name="id" value="" id="id">
+              <textarea  class="form-control" id="descripcionedit" name="descripcion" required=""></textarea>
+            </div>
+            <div class="col-md-12">
+              <input type="file" name="imagen" value="" id="imagen">
+              <img src="" id="imagenedit" style="with:100px;">
+              <br clear=all>
+                <input type="submit" value="Actualizar" class="btn btn-round btn-info btn-icon " style="border: none;color: white;float: right;font-weight: bold;font-size: 12px;background:black;" >
+            </div>
+          </div>
+        </form>
+          <br clear="all">
+        </div>
+    </div>
+</div>
+
+
+
+  </div>
+  <footer class="main-footer">
+  <strong style="float:right;" >2019 <a href="#">AENIMA</a>.</strong>
+  </footer>
+</div>
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="dist/js/demo.js"></script>
+<script>
+  $(document).ready(function() {
+    var list=[]
+    $.get('api/productos',function(res){
+
+      $('#tablaproductosbody').empty()
+
+      for(var i=0;i< res.length;i++){
+        item  = [
+          '<img src="'+res[i].imagen+'" style="width:70px;">',
+          res[i].nombre,
+          res[i].descripcion,
+          '<a href="#" class="btn btn-round btn-info btn-icon btn-sm edit" data-id="'+res[i].id+'" style="background: none;border: none;color: #0f0a0a;"><i class="fa fa-pencil"></i></a><button type="button" class="borrarproducto" data-id="'+res[i].id+'" style="color: #0f0a0a;background: none;border: none;"><i class="fa fa-times"></i></button>'
+        ]
+        list.push(item)
+      }
+      $('#tablaproductos').DataTable({
+        data:list,
+        "paging": false
+      });
+
+
+      $('.borrarproducto').click(function(e){
+          e.preventDefault()
+          id = $(this).data('id')
+          borrar = $(this).parent().parent()
+          swal({
+            title: "Borrar Producto?",
+            text: "¿Esta seguro que quiere borrar este producto?",
+            icon: "warning",
+            buttons: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: '/api/productos/'+id,
+                type: 'DELETE',
+                success: function(res) {
+                  if(res.success){
+                    borrar.remove()
+                    swal("El Producto fue eliminado con exito", {
+                      icon: "success",
+                    });
+                  }
+                }
+              });
+            }
+          });
+      })
+      $('.edit').click(function(e){
+        e.preventDefault()
+        id = $(this).data('id')
+        $.ajax({
+          url:'/api/productos/'+id,
+          type:'GET',
+          success: function(resp){
+            $('#nombreedit').val(resp.nombre)
+            $('#descripcionedit').val(resp.descripcion)
+            $('#imagenedit').attr('src',resp.imagen)
+
+            $('#id').val(id)
+            $('#productoedit').modal('show')
+
+          }
+        })
+
+
+      })
+
+    })
+
+
+});
+
+$("#productonuevo").on('submit', function(e){
+  e.preventDefault()
+  var formData = new FormData();
+  formData.append('file', $('input[type=file]')[0].files[0]);
+  formData.append('nombre',$('#nombre').val())
+  formData.append('descripcion',$('#descripcion').val())
+  $.ajax({
+    type: 'POST',
+    url: '/api/productos',
+    data: formData,
+    dataType: 'json',
+    contentType: false,
+    cache: false,
+    processData:false,
+    beforeSend: function(){
+        $('.submitBtn').attr("disabled","disabled");
+        $('#fupForm').css("opacity",".5");
+    },
+    success: function(response){
+      console.log(response);
+      $('#productonuevo').modal('hide');
+      $('input[type=file]').val(null)
+      $('#nombre').val(null)
+      $('#descripcion').val(null)
+      html = '<tr>'
+      html +='<td>'
+      html +='<img src="'+response.producto.imagen+'" style="width:70px;">'
+      html +='</td>'
+      html +='<td>'+response.producto.nombre+'</td>'
+      html +='<td>'+response.producto.descripcion+'</td>'
+      html+='<td>'
+      html+='<a href="#" class="btn btn-round btn-info btn-icon btn-sm edit" data-id="'+response.producto.id+'" style="background: none;border: none;color: #0f0a0a;"><i class="fa fa-pencil"></i></a><button type="button" class="borrarproducto" data-id="'+response.producto.id+'" style="color: #0f0a0a;background: none;border: none;"><i class="fa fa-times"></i></button>'
+      html+='</td>'
+
+      html +='</tr>'
+      $('#tablaproductosbody').append(html)
+
+      swal("El Producto fue creado con exito", {
+        icon: "success",
+      });
+    }
+  });
+})
+
+
+
+
+$('#productoedit').on('submit', function(e){
+  e.preventDefault()
+  var formDataEdit = new FormData();
+
+  formDataEdit.append('file', $('#imagen')[0].files[0]);
+  formDataEdit.append('nombre',$('#nombreedit').val())
+  formDataEdit.append('descripcion',$('#descripcionedit').val())
+  $.ajax({
+    type: 'POST',
+    url: '/api/productos/'+$('#id').val(),
+    data: formDataEdit,
+    dataType: 'json',
+    contentType: false,
+    cache: false,
+    processData:false,
+    beforeSend: function(){
+        $('.submitBtn').attr("disabled","disabled");
+        $('#fupForm').css("opacity",".5");
+    },
+    success: function(response){
+      $('#productoedit').modal('hide');
+      $('input[type=file]').val(null)
+      $('#nombre').val(null)
+      $('#descripcion').val(null)
+      swal("El Producto fue actualizado con exito", {
+        icon: "success",
+      });
+      location.reload();
+    }
+  });
+
+
+})
+
+
+</script>
+</body>
+</html>
